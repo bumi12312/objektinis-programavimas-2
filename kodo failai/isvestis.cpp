@@ -6,16 +6,13 @@
 
 using namespace std;
 
-void rodytiRezultatus(const vector<studentas> &s, int pasirinkimas) {
+void rodytiRezultatus(const vector<Studentas>& s, int pasirinkimas) {
     if (s.empty()) {
-        cout << "Duomenu nera - ivesk, sugeneruok arba nuskaityk duomenis.\n";
+        cout << "Duomenu nera - ivesk, sugeneruok arba nuskaityk duomenis\n";
         return;
     }
-    vector<studentas> rusiavimas = s;
-    sort(rusiavimas.begin(), rusiavimas.end(),
-        [](const studentas &a, const studentas &b) {
-            return a.pavarde < b.pavarde;
-        });
+    vector<Studentas> rusiavimas = s;
+    sort(rusiavimas.begin(), rusiavimas.end(), comparePagalPavarde);
     cout << "\n" << left << setw(16) << "Vardas" << setw(16) << "Pavarde";
     if (pasirinkimas == 1) {
         cout << "Galutinis (Vid.)";
@@ -24,29 +21,27 @@ void rodytiRezultatus(const vector<studentas> &s, int pasirinkimas) {
     } else {
         cout << "Galutinis (Vid.) / Galutinis (Med.)";
     }
-    cout << "\n";
-    cout << "--------------------------------------------------------\n";
+    cout << "\n--------------------------------------------------------\n";
     cout << fixed << setprecision(2);
-    for (const auto &stud : rusiavimas) {
-        cout << left << setw(16) << stud.vardas << setw(16) << stud.pavarde;
+    for (const auto& stud : rusiavimas) {
+        cout << left << setw(16) << stud.vardas() << setw(16) << stud.pavarde();
         if (pasirinkimas == 1) {
-            cout << stud.galutinisVid;
+            cout << stud.galutinisVid();
         } else if (pasirinkimas == 2) {
-            cout << stud.galutinisMed;
+            cout << stud.galutinisMed();
         } else {
-            cout << left << setw(24) << stud.galutinisVid << stud.galutinisMed;
+            cout << left << setw(24) << stud.galutinisVid() << stud.galutinisMed();
         }
         cout << "\n";
     }
 }
-
-void irasytiIFaila(const vector<studentas> &v, const string &pavadinimas) {
+void irasytiIFaila(const vector<Studentas>& v, const string& pavadinimas) {
     ofstream out(pavadinimas);
     out << fixed << setprecision(2);
     out << left << setw(20) << "Vardas" << setw(20) << "Pavarde" << "Galutinis (Vid.)\n";
-    for (const auto &stud : v) {
-        out << left << setw(20) << stud.vardas << setw(20) << stud.pavarde
-            << stud.galutinisVid << "\n";
+    for (const auto& stud : v) {
+        out << left << setw(20) << stud.vardas() << setw(20) << stud.pavarde()
+            << stud.galutinisVid() << "\n";
     }
     out.close();
 }
