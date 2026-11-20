@@ -13,8 +13,8 @@
 
 using namespace std;
 
-typedef vector<studentas> Vek;
-typedef list<studentas> Sar;
+typedef vector<Studentas> Vek;
+typedef list<Studentas> Sar;
 
 const int DYDZIAI[] = {1000, 10000, 100000, 1000000, 10000000};
 const int BANDYMU = 3;
