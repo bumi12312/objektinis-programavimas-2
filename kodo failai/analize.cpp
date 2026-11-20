@@ -33,9 +33,6 @@ void spartosAnalize() {
         Kategorijos k = dalintiStudentus(s);
         double dalinimas = t.elapsed();
         t.reset();
-        auto pagalBala = [](const studentas &a, const studentas &b) {
-            return a.galutinisVid < b.galutinisVid;
-        };
         sort(k.vargsiukai.begin(), k.vargsiukai.end(), comparePagalGalutini);
         sort(k.kietiakiai.begin(), k.kietiakiai.end(), comparePagalGalutini);
         double rusiavimas = t.elapsed();
