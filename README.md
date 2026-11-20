@@ -4,7 +4,8 @@ Programa skirta studentų galutiniams balams apskaičiuoti pagal namų darbų (v
 
 ---
 
-## Diegimo ir paleidimo instrukcija
+<details>
+<summary><b> Diegimo ir paleidimo instrukcija</b></summary>
 
 1. **Atsisiųskite projektą:** atsisiųskite `.zip` archyvą iš GitHub ir išarchyvuokite jį į pasirinktą aplanką.
 2. **Įsitikinkite, kad įdiegtas CMake:** terminale patikrinkite versiją komanda `cmake --version`. Jei neįdiegtas, atsisiųskite iš [cmake.org/download](https://cmake.org/download/) (Windows) arba įdiekite per terminalą (`brew install cmake` macOS, `sudo apt-get install cmake` Linux).
@@ -28,8 +29,11 @@ Programa skirta studentų galutiniams balams apskaičiuoti pagal namų darbų (v
    .\Release\studentai.exe  # Windows (MSVC)
    ./studentai              # Linux / macOS
    ```
-   
-## Pagrindinės programos funkcijos
+
+</details>
+
+<details>
+<summary><b> Pagrindinės programos funkcijos</b></summary>
 
 * **Duomenų įvestis ir generavimas:** rankinis duomenų įvedimas, atsitiktinis studentų generavimas, duomenų nuskaitymas iš failo bei 5 testinių failų (`1 000` – `10 000 000` įrašų) generavimas.
 * **Galutinio balo skaičiavimas:** naudojama formulė {Galutinis} = 0.4*{ND} + 0.6*{Egzaminas} (pasirenkant ND vidurkį arba medianą).
@@ -38,7 +42,10 @@ Programa skirta studentų galutiniams balams apskaičiuoti pagal namų darbų (v
 
 ---
 
-## Versijų istorija (Releases)
+</details>
+
+<details>
+<summary><b> Versijų istorija (Releases)</b></summary>
 
 * **v0.1** – Pradinė programos versija: rankinis duomenų įvedimas, atsitiktinis pažymių generavimas, galutinio balo skaičiavimas pagal vidurkį ir medianą, rezultatų išvedimas terminale.
 * **v0.2** – Sukurtas studentų failų generatorius. Be to pridėta funkcija kuri suskaido studentus į dvi grupes, pirma - kurių galutinis pažymys >=5, antra - kurių galutinis pažymys <5. Taip pat pridėtas rikiavimas. Programos kodas išskaidytas į modulinius `.h` ir `.cpp` failus.
@@ -46,7 +53,10 @@ Programa skirta studentų galutiniams balams apskaičiuoti pagal namų darbų (v
 
 ---
 
-# Spartos analizė
+</details>
+
+<details>
+<summary><b> Spartos analizė</b></summary>
 
 Testavimo sistema:
 - CPU: CPU Intel(R) Core(TM) Ultra 7 258V
@@ -58,7 +68,7 @@ Testavimo sistema:
 
 <img width="734" height="155" alt="image" src="https://github.com/user-attachments/assets/3b520f6d-243c-42fd-b445-d0c116619978" />
 
-## Failų testavimas (vector tipo konteineriai):
+<summary><b> Failų testavimas (vector tipo konteineriai):</b></summary>
 
 1000 įrašų:
 
@@ -80,7 +90,7 @@ Testavimo sistema:
 
 <img width="975" height="118" alt="image" src="https://github.com/user-attachments/assets/0ca02b6f-3509-4cef-88a6-0ab5bdcece52" />
 
-## Failų testavimas (list tipo konteineriai):
+<summary><b> Failų testavimas (list tipo konteineriai):</b></summary>
 
 1000 įrašų:
 
@@ -102,7 +112,7 @@ Testavimo sistema:
 
 <img width="975" height="119" alt="image" src="https://github.com/user-attachments/assets/d421db65-c79c-4226-9fd0-19359895d4a8" />
 
-## Konteinerių palyginimas (`std::vector` vs `std::list`):
+<summary><b> Konteinerių palyginimas (`std::vector` vs `std::list`):</b></summary>
 
 ### 1 000 įrašų:
 
@@ -159,7 +169,10 @@ Testavimo sistema:
 | Išvedimas (vargšiukai) | 3.09844 | 3.96007 |
 | **Viso** | **19.34406** | **31.18795** |
 
-## Strategijų testavimas
+</details>
+
+<details>
+<summary><b> Strategijų testavimas</b></summary>
 
 1 strategija: Bendro konteinerio skaidymas i du naujus konteinerius (vargsiukai ir kietiakiai):
 
@@ -173,7 +186,34 @@ Testavimo sistema:
 
 <img width="872" height="278" alt="image" src="https://github.com/user-attachments/assets/f645c165-73c2-4465-b0ae-0c75c9e8db5e" />
 
-# Išvados
+</details>
+
+<details>
+<summary><b>Struct ir classs palyginimas</b></summary>
+
+## Struct ir class spartos palyginimas (su -O3 optimizavimu)
+| Įrašų skaičius | Versija | Nuskaitymas (s) | Dalijimas (s) | Rūšiavimas (s) | Viso (s) |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **100 000** | struct | 0.11840 | 0.00610 | 0.02150 | 0.14600 |
+| **100 000** | class | 0.12310 | 0.00890 | 0.02840 | 0.16040 |
+| **1 000 000** | struct | 1.21450 | 0.06820 | 0.26430 | 1.54700 |
+| **1 000 000** | class | 1.26800 | 0.09740 | 0.34160 | 1.70700 |
+
+## Kompiliatoriaus optimizavimo lygių (-O1, -O2, -O3) analizė
+
+| Versija | Flag'as | 100 000 įrašų (s) | 1 000 000 įrašų (s) | `.exe` failo dydis |
+| :--- | :---: | :---: | :---: | :---: |
+| struct | -O1 | 0.17820 | 1.88400 | 2412 KB |
+| struct | -O2 | 0.14950 | 1.58200 | 2436 KB |
+| struct | -O3 | 0.14600 | 1.54700 | 2468 KB |
+| class | -O1 | 0.19640 | 2.08500 | 2428 KB |
+| class | -O2 | 0.16410 | 1.74900 | 2452 KB |
+| class | -O3 | 0.16040 | 1.70700 | 2484 KB |
+
+</details>
+
+<details>
+<summary><b>Išvados</b></summary>
 
 1. **`std::vector` ir `std::list` spartos palyginimas:**
    * Didėjant įrašų skaičiui (`100 000` – `10 000 000`), `std::vector` yra ženkliai spartesnis už `std::list` visose operacijose.
@@ -185,4 +225,5 @@ Testavimo sistema:
    * **1 strategija** (skaidymas į du naujus konteinerius) veikia tiesiniu $O(n)$ laiku ir yra greita, tačiau reikalauja dvigubai daugiau operatyviosios atminties, nes vienu metu atmintyje laikomas ir pradinis konteineris, ir abi išskaidytos jo kopijos.
    * **2 strategija** (vienas naujas konteineris + trynimas iš bendro) su mažais failais dirba pakankamai greitai, tačiau didėjant įrašų skaičiui `std::vector` vykdymo laikas pradeda drastiškai ilgėti.
    * **3 strategija** (optimizuotas skaidymas naudojant `std::partition` + perkėlimą vektoriui ir `std::list::splice` sąrašui) yra greičiausia ir efektyviausia – ji išlaiko tiesinį $O(n)$ veikimo laiką ir nešvaisto papildomos atminties duomenų kopijavimui.
-
+4. 
+</details>
