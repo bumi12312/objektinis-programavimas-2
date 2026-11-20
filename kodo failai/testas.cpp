@@ -55,17 +55,14 @@ bool matuotiViena(int n, Laikai &l) {
 
     return true;
 }
-
 template <typename C>
 vector<Laikai> rinktiKonteinerioLaikus(const string &pavadinimas) {
     vector<Laikai> rezultatai(KIEK_DYDZIU);
     cout << "Matuojamas " << pavadinimas << " (" << BANDYMU << " bandymu vidurkis)...\n";
-
     for (int i = 0; i < KIEK_DYDZIU; i++) {
         int n = DYDZIAI[i];
         Laikai suma;
         bool ok = true;
-
         for (int b = 0; b < BANDYMU; b++) {
             Laikai l;
             if (!matuotiViena<C>(n, l)) {
@@ -78,7 +75,6 @@ vector<Laikai> rinktiKonteinerioLaikus(const string &pavadinimas) {
             suma.isvedimasKietiakiai += l.isvedimasKietiakiai;
             suma.isvedimasVargsiukai += l.isvedimasVargsiukai;
         }
-
         if (ok) {
             rezultatai[i].pavyko = true;
             rezultatai[i].nuskaitymas = suma.nuskaitymas / BANDYMU;
@@ -90,11 +86,9 @@ vector<Laikai> rinktiKonteinerioLaikus(const string &pavadinimas) {
     }
     return rezultatai;
 }
-
 void spausdintiDetaliaAtaskaita(const string &konteinerioPav, const vector<Laikai> &rez) {
     cout << "  " << konteinerioPav << " SPARTOS ANALIZE (DETALUS LAIKAI)\n";
     cout << fixed << setprecision(5);
-
     for (int i = 0; i < KIEK_DYDZIU; i++) {
         int n = DYDZIAI[i];
         string failas = "studentai" + to_string(n) + ".txt";
@@ -111,15 +105,12 @@ void spausdintiDetaliaAtaskaita(const string &konteinerioPav, const vector<Laika
         cout << "  Viso testo veikimas uztruko: " << rez[i].viso() << " sekundes.\n";
     }
 }
-
 void spausdintiPalyginimoLenteles(const vector<Laikai> &vek, const vector<Laikai> &lst) {
     cout << "  VECTOR IR LIST SPARTOS PALYGINIMAS PAGAL OPERACIJAS\n";
     cout << fixed << setprecision(5);
-
     for (int i = 0; i < KIEK_DYDZIU; i++) {
         int n = DYDZIAI[i];
         cout << "\n* " << n << " irasu vector ir list spartos palyginimas:\n\n";
-
         if (!vek[i].pavyko || !lst[i].pavyko) {
             cout << "  Failas studentai" << n << ".txt nerastas (pirma pasirinkite meniu 5).\n";
             continue;
@@ -158,28 +149,26 @@ void spausdintiPalyginimoLenteles(const vector<Laikai> &vek, const vector<Laikai
         cout << "+--------------------------------+--------------+--------------+\n";
     }
 }
-
 void testuotiKonteinerius() {
-    vector<Laikai> vekRez = rinktiKonteinerioLaikus<vector<studentas>>("std::vector");
-    vector<Laikai> listRez = rinktiKonteinerioLaikus<list<studentas>>("std::list");
+    vector<Laikai> vekRez = rinktiKonteinerioLaikus<vector<Studentas>>("std::vector");
+    vector<Laikai> listRez = rinktiKonteinerioLaikus<list<Studentas>>("std::list");
 
     spausdintiDetaliaAtaskaita("std::vector", vekRez);
     spausdintiDetaliaAtaskaita("std::list", listRez);
     spausdintiPalyginimoLenteles(vekRez, listRez);
 }
-
 void rankinisSuAdresais() {
     cout << "Kuri konteineri naudoti? 1 - vector, 2 - list: ";
     int k;
     cin >> k;
     cin.ignore();
     if (k == 1) {
-        vector<studentas> s;
+        vector<Studentas> s;
         ivestiRankiniuSuAdresais(s);
         cout << "\nstd::vector - galutiniai adresai:\n";
         rodytiSuAdresais(s);
     } else {
-        list<studentas> s;
+        list<Studentas> s;
         ivestiRankiniuSuAdresais(s);
         cout << "\nstd::list - galutiniai adresai:\n";
         rodytiSuAdresais(s);
