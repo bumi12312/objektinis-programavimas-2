@@ -16,7 +16,7 @@ using namespace std;
 int main()
 {
     srand((unsigned)time(0));
-    vector<studentas> s;
+    vector<Studentas> s;
     int pasirink;
     do {
         cout << "\n----- MENIU -----\n";
@@ -30,6 +30,7 @@ int main()
         cout << "8 - Konteineriu testavimas (vector vs list)\n";
         cout << "9 - Rankinis ivedimas su adresais (vector arba list)\n";
         cout << "10 - Dalijimo strategiju palyginimas\n";
+        cout << "11 - Class sparta (100k ir 1M\n";
         cout << "0 - Baigti darba\n";
         cout << "Pasirinkimas: ";
         cin >> pasirink;
@@ -69,6 +70,9 @@ int main()
                 break;
             case 10:
                 palygintiStrategijas();
+                break;
+            case 11:
+                testuoti100kIr1M();
                 break;
             case 0:
                 cout << "Darbas baigtas.\n";
