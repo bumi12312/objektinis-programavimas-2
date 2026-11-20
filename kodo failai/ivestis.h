@@ -5,9 +5,9 @@
 #include <vector>
 #include "studentas.h"
 
-void ivestiRankiniu(std::vector<studentas> &s);
-bool nuskaitytiFaila(const std::string &failoPav, std::vector<studentas> &s);
-void nuskaitytiIsFailo(std::vector<studentas> &s);
-void generuotiAtsitiktinai(std::vector<studentas> &s);
+void ivestiRankiniu(std::vector<Studentas>& s);
+bool nuskaitytiFaila(const std::string& failoPav, std::vector<Studentas>& s);
+void nuskaitytiIsFailo(std::vector<Studentas>& s);
+void generuotiAtsitiktinai(std::vector<Studentas>& s);
 
 #endif
