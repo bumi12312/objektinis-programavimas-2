@@ -22,7 +22,7 @@ void spartosAnalize() {
     cout << string(80, '-') << "\n" << fixed << setprecision(4);
     for (int n : dydziai) {
         string failas = "studentai" + to_string(n) + ".txt";
-        vector<studentas> s;
+        vector<Studentas> s;
         Timer t;
         if (!nuskaitytiFaila(failas, s)) {
             cout << left << setw(12) << n << "failas nerastas (pirma pasirinkite 5)\n";
@@ -36,8 +36,8 @@ void spartosAnalize() {
         auto pagalBala = [](const studentas &a, const studentas &b) {
             return a.galutinisVid < b.galutinisVid;
         };
-        sort(k.vargsiukai.begin(), k.vargsiukai.end(), pagalBala);
-        sort(k.kietiakiai.begin(), k.kietiakiai.end(), pagalBala);
+        sort(k.vargsiukai.begin(), k.vargsiukai.end(), comparePagalGalutini);
+        sort(k.kietiakiai.begin(), k.kietiakiai.end(), comparePagalGalutini);
         double rusiavimas = t.elapsed();
         t.reset();
         irasytiIFaila(k.vargsiukai, "vargsiukai" + to_string(n) + ".txt");
