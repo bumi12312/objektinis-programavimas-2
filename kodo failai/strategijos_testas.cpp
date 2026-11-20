@@ -179,8 +179,8 @@ void palygintiStrategijas() {
         vekRez, 3, sarRez, 2
     );
     spausdintiVektoriaus3Variantus(vekRez);
-    spausdintiAtminti("std::vector", sizeof(studentas) + 5 * sizeof(int), vekRez);
-    spausdintiAtminti("std::list", sizeof(studentas) + 5 * sizeof(int) + 2 * sizeof(void *), sarRez);
+    spausdintiAtminti("std::vector", sizeof(Studentas) + 5 * sizeof(int), vekRez);
+    spausdintiAtminti("std::list", sizeof(Studentas) + 5 * sizeof(int) + 2 * sizeof(void *), sarRez);
 }
 void testuoti100kIr1M() {
     const int dydziai[] = {100000, 1000000};
