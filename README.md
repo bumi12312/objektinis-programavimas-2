@@ -50,6 +50,7 @@ Programa skirta studentų galutiniams balams apskaičiuoti pagal namų darbų (v
 * **v0.1** – Pradinė programos versija: rankinis duomenų įvedimas, atsitiktinis pažymių generavimas, galutinio balo skaičiavimas pagal vidurkį ir medianą, rezultatų išvedimas terminale.
 * **v0.2** – Sukurtas studentų failų generatorius. Be to pridėta funkcija kuri suskaido studentus į dvi grupes, pirma - kurių galutinis pažymys >=5, antra - kurių galutinis pažymys <5. Taip pat pridėtas rikiavimas. Programos kodas išskaidytas į modulinius `.h` ir `.cpp` failus.
 * **v0.3** – Patobulinta programos v0.2 versija ir atlikta studentų rūšiavimo bei duomenų suvedimo spartos analizė.
+* **v1.0** - Pirmoji pilna programos versija su struct Studentas struktūra, kurioje įgyvendintas galutinio balo skaičiavimas pagal vidurkį arba medianą bei std::vector ir std::list konteinerių ir trijų studentų skaidymo strategijų spartos analizė.
 
 ---
 
@@ -225,5 +226,7 @@ Testavimo sistema:
    * **1 strategija** (skaidymas į du naujus konteinerius) veikia tiesiniu $O(n)$ laiku ir yra greita, tačiau reikalauja dvigubai daugiau operatyviosios atminties, nes vienu metu atmintyje laikomas ir pradinis konteineris, ir abi išskaidytos jo kopijos.
    * **2 strategija** (vienas naujas konteineris + trynimas iš bendro) su mažais failais dirba pakankamai greitai, tačiau didėjant įrašų skaičiui `std::vector` vykdymo laikas pradeda drastiškai ilgėti.
    * **3 strategija** (optimizuotas skaidymas naudojant `std::partition` + perkėlimą vektoriui ir `std::list::splice` sąrašui) yra greičiausia ir efektyviausia – ji išlaiko tiesinį $O(n)$ veikimo laiką ir nešvaisto papildomos atminties duomenų kopijavimui.
-4. 
+4. **Struct ir clas palyginimas bei optimizavimo flag`ai** 
+   * *`struct` vs `class`:* Abiejų realizacijų sparta su `std::vector` ir `std::partition` yra beveik identiška, nes `inline` prieigos metodai kompiliavimo metu įterpiami tiesiogiai į iškvietimo vietą. Nedidelis `class` sulėtėjimas (~5–10 %) dalijimo ir rūšiavimo etapuose atsiranda dėl aprašytų kopijavimo konstruktoriaus, priskyrimo operatoriaus ir destruktoriaus (*Rule of Three*).
+   * **Optimizavimo flag'ai (`-O1`, `-O2`, `-O3`):** Didinant optimizavimo lygį, programos veikimo laikas trumpėja (didžiausias pagreitėjimas tarp `-O1` ir `-O2`, o `-O3` prideda dar kelis procentus dėl ciklų išskleidimo), tačiau dėl agresyvesnio kodo įterpimo šiek tiek išauga sukompiliuoto `.exe` failo dydis.
 </details>
