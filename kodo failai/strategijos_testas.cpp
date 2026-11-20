@@ -76,7 +76,6 @@ void spausdintiStrategijosLentele(int nr, const string &aprasymas,
          << " | " << right << setw(12) << "Vector (s)"
          << " | " << right << setw(12) << "List (s)" << " |\n";
     cout << "+----------------+--------------+--------------+\n";
-
     cout << fixed << setprecision(5);
     for (size_t i = 0; i < vekRez.dydziai.size(); i++) {
         double vLaikas = vekRez.laikai[i][vekIdx];
@@ -123,7 +122,6 @@ void spausdintiAtminti(const string &pavadinimas, size_t baitaiVienam, const Rez
          << " | " << right << setw(12) << "1 strat. MB"
          << " | " << right << setw(12) << "2/3 str. MB" << " |\n";
     cout << "+----------------+------------------+------------------+--------------+--------------+\n";
-
     cout << fixed << setprecision(2);
     for (size_t i = 0; i < rez.objektai.size(); i++) {
         size_t o1 = rez.objektai[i].front();
@@ -136,7 +134,6 @@ void spausdintiAtminti(const string &pavadinimas, size_t baitaiVienam, const Rez
     }
     cout << "+----------------+------------------+------------------+--------------+--------------+\n";
 }
-
 void palygintiStrategijas() {
     vector<Strategija<Vek>> vekStr = {
         {"1 strat. (kopijavimas)", dalintiS1<Vek>, INT_MAX},
@@ -150,10 +147,8 @@ void palygintiStrategijas() {
         {"2 strat. (erase)",       dalintiS2<Sar>, INT_MAX},
         {"3 strat. (splice)",      dalintiListS3,  INT_MAX}
     };
-
     Rezultatai<Vek> vekRez;
     Rezultatai<Sar> sarRez;
-
     for (int n : DYDZIAI) {
         Vek baze;
         if (!skaitytiKonteineri("studentai" + to_string(n) + ".txt", baze)) {
@@ -167,28 +162,55 @@ void palygintiStrategijas() {
     }
 
     if (vekRez.dydziai.empty()) return;
-
     cout << "  STUDENTU SKIRSTYMO STRATEGIJU APZVALGA (" << BANDYMU << " bandymu vidurkis)\n";
-
     spausdintiStrategijosLentele(
         1,
         "Bendro konteinerio skaidymas i du naujus konteinerius (vargsiukai ir kietiakiai).",
         vekRez, 0, sarRez, 0
     );
-
     spausdintiStrategijosLentele(
         2,
         "Skaidymas panaudojant viena nauja konteineri (vargsiukai) ir trynima is bendro.",
         vekRez, 1, sarRez, 1
     );
-
     spausdintiStrategijosLentele(
         3,
         "Optimizuotas skaidymas (vector: partition + move, list: splice).",
         vekRez, 3, sarRez, 2
     );
-
     spausdintiVektoriaus3Variantus(vekRez);
     spausdintiAtminti("std::vector", sizeof(studentas) + 5 * sizeof(int), vekRez);
     spausdintiAtminti("std::list", sizeof(studentas) + 5 * sizeof(int) + 2 * sizeof(void *), sarRez);
+}
+void testuoti100kIr1M() {
+    const int dydziai[] = {100000, 1000000};
+    cout << "\n--- CLASS STUDENTAS TESTAS ---\n";
+    cout << fixed << setprecision(5);
+    for (int n : dydziai) {
+        string failas = "studentai" + to_string(n) + ".txt";
+        double tNusk = 0.0, tDal = 0.0, tRus = 0.0;
+        for (int b = 0; b < BANDYMU; b++) {
+            Vek s, vargsiukai, kietiakiai;
+            Timer t;
+            if (!skaitytiKonteineri(failas, s)) {
+                cout << "Failas " << failas << " nerastas - pirma pasirinkite meniu 5.\n";
+                return;
+            }
+            tNusk += t.elapsed();
+            t.reset();
+            dalintiVekS3b(s, vargsiukai, kietiakiai);
+            tDal += t.elapsed();
+            t.reset();
+            rusiuotiKonteineri(vargsiukai);
+            rusiuotiKonteineri(s);
+            tRus += t.elapsed();
+        }
+        tNusk /= BANDYMU;
+        tDal /= BANDYMU;
+        tRus /= BANDYMU;
+        cout << n << " irasu | Nuskaitymas: " << tNusk
+             << " s | Dalijimas: " << tDal
+             << " s | Rusiavimas: " << tRus
+             << " s | Viso: " << (tNusk + tDal + tRus) << " s\n";
+    }
 }
