@@ -38,7 +38,6 @@ public:
     inline double galutinisMed() const { return galutinisMed_; }
 
     double galBalas(double (*krit)(std::vector<int>) = mediana) const;
-s
     std::istream& readStudent(std::istream& is);
     void setVardas(const std::string& v) { vardas_ = v; }
     void setPavarde(const std::string& p) { pavarde_ = p; }
