@@ -5,7 +5,7 @@
 #include <vector>
 #include "studentas.h"
 
-void rodytiRezultatus(const std::vector<studentas> &s, int pasirinkimas);
-void irasytiIFaila(const std::vector<studentas> &v, const std::string &pavadinimas);
+void rodytiRezultatus(const std::vector<Studentas>& s, int pasirinkimas);
+void irasytiIFaila(const std::vector<Studentas>& v, const std::string& pavadinimas);
 
 #endif
